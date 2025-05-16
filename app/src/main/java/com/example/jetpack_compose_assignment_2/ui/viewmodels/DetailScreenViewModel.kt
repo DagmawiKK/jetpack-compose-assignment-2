@@ -49,14 +49,15 @@ class DetailScreenViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val todo = toDoRepository.getTodoById(todoId)
-                _state.value = _state.value.copy(
-                    title = todo.title,
-                    completed = todo.completed,
-                    isLoading = false,
-                    error = null,
-                    isSuccess = true
-                )
+                toDoRepository.getTodoById(todoId).collect { todo ->
+                    _state.value = _state.value.copy(
+                        title = todo.title,
+                        completed = todo.completed,
+                        isLoading = false,
+                        error = null,
+                        isSuccess = true
+                    )
+                }
             } catch (e: Exception) {
                 _state.value = _state.value.copy(
                     isLoading = false,

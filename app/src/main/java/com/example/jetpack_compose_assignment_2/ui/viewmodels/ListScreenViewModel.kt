@@ -8,6 +8,7 @@ import com.example.jetpack_compose_assignment_2.ui.state.ListScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,11 +36,11 @@ class ListScreenViewModel @Inject constructor(
 
     private fun fetchTodos() {
         viewModelScope.launch {
-            _state.value = _state.value.copy(isLoading = true, error = null)
             _state.value = _state.value.copy(isLoading = true, error = null, todoList = emptyList())
             try {
-                val todoList = toDoRepository.getTodos()
-                _state.value = _state.value.copy(isLoading = false, todoList = todoList)
+                toDoRepository.getTodos().collectLatest { todoList ->
+                    _state.value = _state.value.copy(isLoading = false, todoList = todoList)
+                }
             } catch (e: Exception) {
                 _state.value = _state.value.copy(isLoading = false, error = e.message ?: "An unknown error occurred")
             }
