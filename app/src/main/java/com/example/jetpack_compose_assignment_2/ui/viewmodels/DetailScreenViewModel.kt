@@ -27,6 +27,9 @@ class DetailScreenViewModel @Inject constructor(
             is DetailScreenEvent.OnIdChange -> {
                 _state.value = _state.value.copy(id = event.id)
             }
+            is DetailScreenEvent.OnUserIdChange -> {
+                _state.value = _state.value.copy(userId = event.userId)
+            }
             is DetailScreenEvent.OnTitleChange -> {
                 _state.value = _state.value.copy(title = event.title)
             }
@@ -51,6 +54,8 @@ class DetailScreenViewModel @Inject constructor(
             try {
                 toDoRepository.getTodoById(todoId).collect { todo ->
                     _state.value = _state.value.copy(
+                        id = todo.id,
+                        userId = todo.userId,
                         title = todo.title,
                         completed = todo.completed,
                         isLoading = false,

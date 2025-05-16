@@ -69,13 +69,20 @@ fun DetailsScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         Text(
+                            text = "User ID: ${state.userId}",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
                             text = "ID: ${state.id}",
                             style = MaterialTheme.typography.titleMedium
                         )
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = "Title: ${state.title}",
                             style = MaterialTheme.typography.titleLarge
                         )
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = if (state.completed) "Status: Completed" else "Status: Pending",
                             color = if (state.completed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary,
