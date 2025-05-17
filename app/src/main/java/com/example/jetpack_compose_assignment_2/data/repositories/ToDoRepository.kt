@@ -24,9 +24,8 @@ class ToDoRepository @Inject constructor(
         }
         try {
             val fetched = apiService.getTodos()
+            emit(fetched)
             fetched.forEach { todoDao.insertTodos(it.toEntity()) }
-            val updated = todoDao.getAllTodos().map { it.toModel() }
-            emit(updated)
         } catch (e: Exception) {
                 println("Failed to fetch todos: ${e.message}")
         }

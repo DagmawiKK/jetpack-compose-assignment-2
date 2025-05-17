@@ -11,6 +11,4 @@ data class ListScreenState(
 
 sealed class ListScreenEvent {
     object getTodos : ListScreenEvent()
-    data class OnTodoClick(val todo: Todo) : ListScreenEvent()
-    data class NavigateToDetailsScreen(val id: Int) : ListScreenEvent()
 }
